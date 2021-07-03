@@ -4,7 +4,8 @@ require("dotenv").config();
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-const request = require("request");
+const https = require("https");
+const axios = require("axios");
 
 const app = express();
 app.use(express.static("public"));
@@ -14,12 +15,14 @@ app.set('view engine', 'ejs');
 app.get("/", (req, res) => {
     res.render("index");
 });
+
 app.post("/", (req, res) => {
     const query = req.body.movie;
     const url = "https://www.omdbapi.com/?t=" + query + "&apikey=" + process.env.API_KEY + "&plot=full";
-    request(url, function (error, response, body) {
-      try{
-            const info = JSON.parse(body);
+    axios.get(url).then(response => {
+       console.log(url);
+        if (response.data.Response === "True") {
+            const info = response.data;
             var IMDB = "";
             var Meta = "";
             var Rotten = "";
@@ -50,7 +53,7 @@ app.post("/", (req, res) => {
 
             res.render("result", { info: info, IMDB: IMDB, Meta: Meta, Rotten: Rotten });
         }
-        catch{
+        else {
             res.render("failure");
         }
     });
@@ -58,7 +61,7 @@ app.post("/", (req, res) => {
 });
 app.get("/failure", (req, res) => {
     res.render("failure");
-})
+});
 app.post("/search", (req, res) => {
     res.redirect("/");
 });
