@@ -4,7 +4,6 @@ require("dotenv").config();
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-const https = require("https");
 const axios = require("axios");
 
 const app = express();
@@ -20,7 +19,7 @@ app.post("/", (req, res) => {
     const query = req.body.movie;
     const url = "https://www.omdbapi.com/?t=" + query + "&apikey=" + process.env.API_KEY + "&plot=full";
     axios.get(url).then(response => {
-       console.log(url);
+        try{
         if (response.data.Response === "True") {
             const info = response.data;
             var IMDB = "";
@@ -55,12 +54,12 @@ app.post("/", (req, res) => {
         }
         else {
             res.render("failure");
+        }}
+        catch{
+            res.render("failure");
         }
     });
 
-});
-app.get("/failure", (req, res) => {
-    res.render("failure");
 });
 app.post("/search", (req, res) => {
     res.redirect("/");
