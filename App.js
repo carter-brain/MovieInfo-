@@ -4,9 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-const https = require("https");
 const request = require("request");
-const { info } = require("console");
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -19,7 +17,6 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     const query = req.body.movie;
     const url = "https://www.omdbapi.com/?t=" + query + "&apikey=" + process.env.API_KEY + "&plot=full";
-    console.log(url);
       request(url, function(error, response, body){
           const info = JSON.parse(body);
           var IMDB = "";
@@ -57,6 +54,6 @@ app.get("/result", (req, res)=>{
 });
 
 app.listen(process.env.PORT || 3000, ()=>{
-    console.log("Server is up and running in port 3000");
+    console.log("Server is up and running");
 });
  
