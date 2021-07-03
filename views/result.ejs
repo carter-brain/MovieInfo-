@@ -1,0 +1,43 @@
+<%-include("./partials/header")-%>
+
+<div class="movie-container">
+    <div class="top-container">
+        <h1 class="title" ><%=info.Title%></h1>
+    </div>
+   <div class="left-container">
+       <ul class="icon-box">
+        <div class="rating-box" ><li><i class="fab fa-imdb fa-4x icon"></i><h2 class="rating"><%=IMDB%></h2></li></div>
+          <div class="rating-box" ><li><img class= "icon" src="images/metacritic.png" alt="Metacritic logo"><h2 class="rating"><%=Meta%></h2></li></div>
+           <div class="rating-box" ><li><img class= "icon" src="images/tomato.png" alt="Rotten Tomato logo"><h2 class="rating"><%=Rotten%></h2></li></div>
+           
+       </ul>
+   </div>
+   <div class="center">
+       <img src=<%=info.Poster%> alt="<%=info.Title%>"/>
+       <h2 class="language"><%=info.Language%></h2>
+       <h2 class="runtime"><%=info.Runtime%></h2>
+   </div>
+   <div class="right-container">
+         <label class="info">Director</label>
+         <h3><%=info.Director%></h3>
+         <hr>
+         <label class="info">Actors</label>
+         <h3><%=info.Actors%></h3>
+         <hr>
+         <label class="info">Released</label>
+         <h3><%=info.Released%></h3>
+         <hr>
+         <label class="info">Genre</label>
+         <h3><%=info.Genre%></h3>
+   </div>
+   <div class="bottom-container">
+         <p><%=info.Plot%></p>
+   </div>
+   <form action="/" method="GET">
+    <button class="btn-grad">
+        Search Movie
+    </button>
+    </form>
+   </div>
+  
+   <%-include("./partials/footer")-%>
