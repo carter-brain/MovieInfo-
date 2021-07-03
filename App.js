@@ -5,6 +5,7 @@ const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const request = require("request");
+
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,7 +47,7 @@ app.post("/", (req, res) => {
                 Rotten = "N/A";
             }
         }
-          res.render("result.ejs", {info: info, IMDB: IMDB, Meta: Meta, Rotten: Rotten});
+          res.render("result", {info: info, IMDB: IMDB, Meta: Meta, Rotten: Rotten});
     }); 
 });
 app.get("/result", (req, res)=>{
